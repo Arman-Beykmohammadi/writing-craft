@@ -90,8 +90,8 @@ F2 forbids moving a claim up or down a ladder. These are the CV ladders, lowest 
 - Languages: copy the CEFR level (A1 to C2) or the user's own label exactly. "Fließend" does not become "verhandlungssicher"; "B2" does not become "fluent".
 - Job titles: copy exactly. "Werkstudent Softwareentwicklung" does not become "Software Engineer"; "Junior" and "Intern" stay.
 
-Upgrade words (en): led | headed | owned | spearheaded | managed | directed | founded | winner | won | first place | published | accepted | invited talk | keynote | awarded | fluent | native | expert | senior | lead
-Upgrade words (de): geleitet | leitete | Leitung | federführend | verantwortete | gegründet | Gewinner | Gewinnerin | gewonnen | Sieg | 1. Platz | veröffentlicht | angenommen | eingeladener Vortrag | ausgezeichnet | verhandlungssicher | muttersprachlich | Experte | Expertin | Senior
+Upgrade words (en): led | headed | owned | spearheaded | managed | directed | founded | winner | won | first place | published | accepted | invited talk | keynote | awarded | fluent | native | expert | senior | lead | proficient | advanced | extensive | deep expertise
+Upgrade words (de): geleitet | leitete | Leitung | federführend | verantwortete | gegründet | Gewinner | Gewinnerin | gewonnen | Sieg | 1. Platz | veröffentlicht | angenommen | eingeladener Vortrag | ausgezeichnet | verhandlungssicher | muttersprachlich | Experte | Expertin | Senior | sicher | fundierte | sehr gute | umfassende
 
 The script flags any of these words that appear in the output but not in the source. The model applies the ladders directly.
 

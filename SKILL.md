@@ -1,6 +1,6 @@
 ---
 name: writing-craft
-description: Reviews, rewrites, and drafts CVs and resumes (German Lebenslauf, academic CVs, bullets, summaries, skills, tailoring to a job posting), scientific writing (papers, abstracts, theses, methods, results, related work, captions, grant proposals, peer reviews, responses to reviewers), and professional prose (cover letters, Anschreiben, motivation letters, application and outreach emails, LinkedIn and blog posts, other prose) in English and German. Use whenever someone asks to look over, give feedback on, improve, tighten, shorten, tailor, humanize, or write any of these, asks whether text sounds AI-written, or wants AI tells removed, even if they never mention AI. Knows each genre's conventions, keeps the writer's voice, and never invents or inflates facts. Not for plain translation, summarizing, fact-checking, or code.
+description: Reviews, rewrites, and drafts CVs and resumes (German Lebenslauf, academic CVs, bullets, summaries, skills, tailoring to a job posting), scientific writing (papers, abstracts, theses, methods, results, related work, captions, grant proposals, peer reviews, responses to reviewers), and professional prose (cover letters, Anschreiben, motivation letters, application and outreach emails, LinkedIn and blog posts, other prose) in English and German. Use whenever someone asks to look over, give feedback on, improve, tighten, shorten, tailor, humanize, or write any of these, asks whether text sounds AI-written, wants AI tells removed, or wants to check that an edit kept every fact, number, and link, even if they never mention AI. Knows each genre's conventions, keeps the writer's voice, and never invents or inflates facts. Not for plain translation, summarizing, fact-checking, or code.
 license: MIT
 metadata:
   version: "1.0.0"
@@ -72,7 +72,7 @@ Explicit words beat these rules. "Clean this up but only tell me what's wrong" i
 
 | Always | Genre (one or more) | Language (one or both) | Mode |
 |---|---|---|---|
-| `references/patterns.md` | `references/genre-cv.md` · `references/genre-science.md` · `references/genre-prose.md` | `references/lang-en.md` · `references/lang-de.md` | `references/modes.md` (read the section for the chosen mode) |
+| `references/patterns.md` (read it in full, every time) | `references/genre-cv.md` · `references/genre-science.md` · `references/genre-prose.md` | `references/lang-en.md` · `references/lang-de.md` | `references/modes.md` (read the section for the chosen mode) |
 
 For a mixed document, load each genre and language it contains. Do not load files for genres or languages that are not present.
 

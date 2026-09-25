@@ -137,7 +137,7 @@ For named prose files in environments that can write files (Claude Code, desktop
 - Write only from the user's material: CV, notes, posting, results, prior drafts, answers in the session. Personal information comes only from what the user supplied in this session.
 - Follow the genre file's structure for the type (PR-1, PR-2, PR-3, SCI-3, CV-1 ...), the language file's conventions, and any voice sample.
 - Every fact the text needs and the material lacks becomes `[NEED: what, and why it is needed]` in place. Never fill it in, estimate it, or write around it with a vague claim that implies it.
-- Motivation and reasons ("why this company", "why this group") are facts about the user: `[NEED: ...]` unless supplied.
+- Motivation and reasons ("why this company", "why this group") are facts about the user: `[NEED: ...]` unless supplied. Do not assemble a reason from other facts ("because the role combines my studies with my experience"); that is still an invented motivation. The same holds in Rewrite mode.
 - Apply the catalog while writing, so the draft needs no cleanup pass.
 
 Output:

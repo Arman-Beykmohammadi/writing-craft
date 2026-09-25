@@ -49,6 +49,7 @@ F2 forbids changing a claim's strength. When the user asks for help choosing, or
 | Null result | did not detect, found no evidence of, was not significantly different (with the test) | konnte nicht nachgewiesen werden, kein signifikanter Unterschied (mit Test) |
 
 Rules:
+- Use one verb from one row. A hedge verb already hedges; do not add a modal to it ("legt nahe, dass ... überlegen sein könnte" and "may suggest" hedge twice; see SCI-2).
 - Causal words (causes, leads to, drives, improves, bewirkt, führt zu, verbessert) need a causal design. Observational data gets association verbs.
 - "Significant" and "signifikant" mean statistical significance. Use them only with a test and a threshold. For importance, write "large", "substantial", "wichtig", "deutlich" (with the number).
 - "Novel", "first", "for the first time", "erstmals" only when the source makes the claim and the user confirms it. Otherwise flag (I7).

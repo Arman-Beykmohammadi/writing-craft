@@ -490,6 +490,40 @@ def fact_findings(output, source, lang, allow=()):
     return findings
 
 
+QUALIFIERS = {
+    "en": r"up to|about|around|approximately|approx\.|roughly|nearly|almost|over|more than|at least|at most|under|less than|~",
+    "de": r"bis zu|rund|etwa|ungefähr|ca\.|circa|knapp|fast|über|mehr als|mindestens|höchstens|unter|weniger als|~",
+}
+
+
+def qualifier_findings(output, source, lang):
+    """F2 candidates: a qualifier on a number added, dropped, or changed."""
+    pattern = re.compile(r"(?:(%s)\s*)?(\d+(?:[.,]\d+)?)" % QUALIFIERS.get(lang, QUALIFIERS["en"]), re.I)
+
+    def pairs(text):
+        found = {}
+        for m in pattern.finditer(mask_code(text)):
+            for value in number_values(m.group(2)):
+                found.setdefault(value, set()).add((m.group(1) or "").lower())
+        return found
+
+    src = pairs(source)
+    findings = []
+    for m in pattern.finditer(mask_code(output)):
+        qualifier = (m.group(1) or "").lower()
+        values = number_values(m.group(2))
+        known = [src[v] for v in values if v in src]
+        if not known or any(qualifier in k for k in known):
+            continue
+        before = sorted(q for k in known for q in k)
+        note = ("qualifier '%s' added to a number" % qualifier if qualifier else
+                "qualifier '%s' dropped from a number" % before[0] if before and before[0] else "qualifier changed")
+        if qualifier and before and before[0]:
+            note = "qualifier changed from '%s' to '%s'" % (before[0], qualifier)
+        findings.append({"id": "F2", "offset": m.start(), "text": m.group(0), "note": note})
+    return findings
+
+
 def ladder_findings(output, source, lang, genre):
     words = parse_upgrade_words(genre).get(lang, [])
     src = source.lower()
@@ -705,7 +739,8 @@ def scan(text, genre=None, column=None, lang=None, source=None, allow=(), strict
         needs.append({"line": line, "col": col, "text": m.group(0)})
 
     if source is not None:
-        facts = fact_findings(text, source, lang, allow) + ladder_findings(text, source, lang, genre)
+        facts = (fact_findings(text, source, lang, allow) + ladder_findings(text, source, lang, genre)
+                 + qualifier_findings(text, source, lang))
         for f in facts:
             line, col = line_col(text, f["offset"])
             findings.append({"id": f["id"], "tier": "F", "line": line, "col": col, "offset": f["offset"],
@@ -799,7 +834,8 @@ def main(argv=None):
         except ImportError:
             print("aiw_validate.py not found; structural preservation check skipped.")
         lang = args.lang if args.lang in ("en", "de") else detect_language(revised)
-        facts = fact_findings(revised, original, lang, args.allow) + ladder_findings(revised, original, lang, args.genre)
+        facts = (fact_findings(revised, original, lang, args.allow) + ladder_findings(revised, original, lang, args.genre)
+                 + qualifier_findings(revised, original, lang))
         if facts:
             print("Facts in the revision that are not in the original:")
             for f in facts:

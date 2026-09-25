@@ -63,7 +63,7 @@ An entry not listed is `on`. F1 to F5 are always on. Columns `linkedin`, `blog`,
 
 Structure, for about 250 to 400 words on one page:
 
-1. **Opening (2 to 3 sentences).** The role, and one specific reason this person wants this job at this organization. The reason comes from the user. If the user has not given one, write `[NEED: why this role and this organization, in your words]` in Draft mode, or flag its absence in Critique. Never invent enthusiasm for a product, mission, or person.
+1. **Opening (2 to 3 sentences).** The role, and one specific reason this person wants this job at this organization. The reason comes from the user. If the user has not given one, write `[NEED: why this role and this organization, in your words]` in Draft and Rewrite mode, or flag its absence in Critique. Never invent enthusiasm for a product, mission, or person, and never build a reason out of CV facts ("because it combines my studies with my practice").
 2. **Evidence (1 or 2 paragraphs).** Two or three of the posting's requirements, each matched to something the user has done (from the CV or source). One concrete example beats a list of adjectives.
 3. **Logistics (1 to 2 sentences, only what applies).** Start date, notice period, relocation, work authorization, salary expectation when the posting asks for it. All from the user.
 4. **Closing (1 to 2 sentences).** The next step, stated plainly. No pleading, no over-thanking.

@@ -177,6 +177,13 @@ class FactTests(unittest.TestCase):
         result = check.scan("2023 Gewinner, Hochschul-Hackathon", genre="cv", lang="de", source=source)
         self.assertIn("F2", ids(result))
 
+    def test_number_qualifier_changes(self):
+        source = "Verfügbar ab 01.11.2026, 20 Stunden pro Woche. Abstimmung von rund 400 Rechnungen."
+        output = "Ab dem 01.11.2026 mit bis zu 20 Stunden pro Woche. 400 Rechnungen abgestimmt."
+        notes = [f["note"] for f in check.scan(output, genre="cv", lang="de", source=source)["findings"] if f["id"] == "F2"]
+        self.assertTrue(any("added" in n for n in notes))
+        self.assertTrue(any("dropped" in n for n in notes))
+
     def test_code_tokens_match_by_part(self):
         result = check.scan("Englisch auf C1-Niveau.", lang="de", source="Englisch C1")
         self.assertNotIn("F1", ids(result))

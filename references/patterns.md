@@ -13,8 +13,9 @@ Entries describe candidate matches, not automatic edits. A candidate becomes a f
 - **Guard.** When not to flag. Guards beat markers.
 - **Fix.** Direction for the fix.
 - **From.** The source features merged into the entry, by their inventory ID (see README, feature map). A = avoid-ai-writing, H = humanizer, S = stop-slop, M = avoid-ai-writing-multilingual (German), W = German Wikipedia guide, N = new in this skill.
-- **Check (en) / Check (de).** Literal markers for the optional script. The model uses them as examples, not as the definition. Syntax: items separated by ` | `; case-insensitive; `…` joins two parts with a gap of up to 60 characters inside one sentence; a trailing `*` matches word stems; a leading `^` means sentence start; `re:` introduces a regular expression.
-- **Threshold.** Script density rule, when an entry has one.
+- **Check (en) / Check (de).** Literal markers for the optional script. The model uses them as examples, not as the definition. Syntax: items separated by ` | `; case-insensitive; `…` joins two parts with a gap of up to 60 characters inside one sentence; a trailing `*` matches word stems; a leading `^` means sentence start; `re:` introduces a regular expression; a leading `~` marks a density item that counts at the entry's Threshold or, below it, inside a cluster; `~~` marks an item that counts only at the Threshold.
+- **Threshold.** Script density rule for `~` items, in the form `Threshold: N per text | paragraph | M words`, optionally for one language (`Threshold (de): ...`). A density inside a text window of M words also counts when the text is shorter than M words.
+- **Density (model).** A density rule the model applies; the script checks some of these with built-in counters.
 
 ## Order
 
@@ -260,7 +261,7 @@ Tier P0 in investor, press, abstracts, and proposals (settings `extra`); P1 else
 - **Fix:** keep the fact, drop the significance. If the sentence still works after deleting the inflation clause, delete it. End on the last concrete fact; if the source states real plans, use those. Name the challenge and the response only if the source gives them; otherwise cut the stock sentence.
 - **From:** A-significance-inflation, A-formulaic-challenges, H-13, M-1, M-6, W (symbolische Überbetonung).
 Check (en): stands as a testament | a testament to | pivotal moment | watershed moment | in the evolution of | a defining moment in | plays a crucial role | plays a pivotal role | plays a vital role | plays a key role | enduring legacy | lasting legacy | setting the stage for | indelible mark | evolving landscape | re:\bdespite (?:these |the |its )?challenges\b[^.]{0,80}\bcontinues? to thrive\b | remains resilient
-Check (de): spielt eine entscheidende Rolle | spielt eine zentrale Rolle | spielt eine wichtige Rolle | spielt eine Schlüsselrolle | kommt eine Schlüsselrolle zu | von zentraler Bedeutung | markiert einen Wendepunkt | bleibendes Vermächtnis | ein wichtiger Baustein | trägt maßgeblich dazu bei | setzt neue Maßstäbe | trotz der Herausforderungen … weiterhin
+Check (de): spielt … eine entscheidende Rolle | spielt … eine zentrale Rolle | spielt … eine wichtige Rolle | spielt … eine Schlüsselrolle | spielen … eine entscheidende Rolle | kommt eine Schlüsselrolle zu | von zentraler Bedeutung | markiert einen Wendepunkt | bleibendes Vermächtnis | ein wichtiger Baustein | trägt maßgeblich dazu bei | setzt neue Maßstäbe | trotz der Herausforderungen … weiterhin
 
 ### I2 · Generic conclusions and future closers
 Tier P1.
@@ -293,8 +294,9 @@ The English tiers come from avoid-ai-writing (which adapted the tiering from bra
 - **Guard:** technical senses: in technical text (`tech-blog`, `docs`, science) robust, comprehensive, seamless, ecosystem, leverage (real platform leverage), facilitate, underpin, streamline, and "test harness" stay; ornamental uses and delve, tapestry, beacon, embark, testament to, game-changer still count. "Robust" in statistics ("robust standard errors") is a term. "Significant" with a statistical test is a term (I13). "Nachhaltig" means "lasting" as well as "sustainable". "Chancen und Risiken" is required wording in German management reports (§ 289 HGB). A word that is clearly right in context stays; replacements are defaults, not mandates. A formal word outside these lists is not a tell by itself.
 - **Fix:** use the plain alternative, or cut. For Tier 2 and 3, change enough to break the cluster, not every instance.
 - **From:** A-tier1a, A-tier1b, A-load-bearing, A-tier2, A-tier3, A-tier3-phrases, A-technical-exceptions, H-12, S-BusinessJargon, M-Tier1, M-Tier2, M-Tier3 (corrected; see `lang-de.md`, DE-7), N (German Amtsdeutsch list).
-Check (en): delve* | tapestry | realm | paradigm | embark* | beacon | testament to | cutting-edge | leverag* | pivotal | underscor* | meticulous* | seamless* | game-chang* | watershed moment | nestled | showcas* | deep dive | dive into | unpack* | intricate | intricacies | ever-evolving | holistic* | actionable | impactful | learnings | thought leader* | synerg* | interplay | garner* | lean into | double down | circle back | on the same page
-Check (de): Synergien | synergetisch | Paradigmenwechsel | ganzheitlich* | zukunftsweisend | zukunftsorientiert | wegweisend | bahnbrechend | eine Vielzahl an | eine Vielzahl von | eine breite Palette an | tauchen wir ein | tauchen Sie ein | beleuchten wir | maßgeschneidert* | facettenreich*
+Check (en): delve* | tapestry | realm | paradigm | embark* | beacon | testament to | cutting-edge | leverag* | pivotal | underscor* | meticulous* | seamless* | game-chang* | watershed moment | nestled | showcas* | deep dive | dive into | unpack* | intricate | intricacies | ever-evolving | holistic* | actionable | impactful | learnings | thought leader* | synerg* | interplay | garner* | lean into | double down | circle back | on the same page | results-driven | proven track record | detail-oriented | self-starter | team player | go-getter | passionate about | ~~harness* | ~~navigat* | ~~foster* | ~~elevat* | ~~unleash* | ~~streamlin* | ~~empower* | ~~bolster* | ~~spearhead* | ~~orchestrat* | ~~champion* | ~~resonat* | ~~revolutioniz* | ~~facilitat* | ~~underpin* | ~~nuanced | ~~crucial | ~~multifaceted | ~~ecosystem | ~~myriad | ~~plethora | ~~encompass* | ~~catalyz* | ~~reimagin* | ~~galvaniz* | ~~augment* | ~~cultivat* | ~~illuminat* | ~~elucidat* | ~~juxtapos* | ~~transformative | ~~cornerstone | ~~paramount | ~~poised | ~~burgeoning | ~~nascent | ~~quintessential | ~~overarching | ~~quietly
+Check (de): Synergien | synergetisch | Paradigmenwechsel | ganzheitlich* | zukunftsweisend | zukunftsorientiert | wegweisend | bahnbrechend | eine Vielzahl an | eine Vielzahl von | eine breite Palette an | tauchen wir ein | tauchen Sie ein | beleuchten wir | maßgeschneidert* | facettenreich* | ~~ermöglich* | ~~gewährleist* | ~~optimier* | ~~intensivier* | ~~vorantreib* | ~~verdeutlich* | ~~unterstreich* | ~~maßgeblich* | ~~essenziell* | ~~essentiell* | ~~vielfältig* | ~~zahlreich* | ~~proaktiv* | ~~dynamisch* | ~~nahtlos* | ~~effizient* | ~~innovativ* | ~~nachhaltig* | ~~Herausforderung* | ~~Potenzial* | ~~Mehrwert | ~~transformier* | ~~revolutionier* | ~~Innovationskraft | ~~hochmotiviert* | ~~zielorientiert* | ~~lösungsorientiert* | ~~leidenschaftlich* | ~~mit Leidenschaft | ~~spannend* | ~~entscheidend* | ~~Schlüsselrolle
+Threshold: 2 per paragraph
 
 ### I5 · Name-dropping and analogy stacking
 Tier P1.
@@ -329,7 +331,7 @@ Tier P1 for genuine/genuinely, truly, quite frankly, to be honest, let's be clea
 - **From:** A-hollow-intensifiers, S-Adverbs (specific offenders), S-TellingNotShowing, S-PerformativeEmphasis, H-12 (actually), N (German, science boosters).
 Check (en): genuinely | truly | quite frankly | to be honest | let's be clear | let us be clear | it's worth noting | this is genuinely | actually looks like | actually matters | I promise
 Check (de): ehrlich gesagt | schlichtweg | zutiefst | zweifellos
-Threshold: weak markers count at 3 per 300 words.
+Density (model): the weak markers count at 3 per 300 words.
 
 ### I9 · Real/actual inflation
 Tier P1.
@@ -388,8 +390,8 @@ Tier P1. At most one deliberate use per piece, and only if it serves the argumen
 - **Example (invented):** "Our onboarding isn't just a checklist. It's a culture." → "New hires pair with a colleague for their first two weeks." (only if the source says so; otherwise "Our onboarding has a checklist and a buddy system", or ask what the culture claim means).
 - **From:** A-not-x-but-y (split form, countdown, tailing negation), H-1, S-BinaryContrasts, S-NegativeListing, M-17, M-Tier3 (nicht nur ... sondern auch), W (negativer Parallelismus), N (Es geht nicht um ... sondern).
 Check (en): re:\bit'?s not (?:just |only |merely )?[^.;]{1,60}[,;] it'?s\b | re:\bthis isn'?t (?:about|just)\b[^.]{0,60}\bit'?s\b | re:\bnot (?:just|only|merely) [^.]{1,60}\bbut\b | re:\bnot because [^.]{1,60}\. because\b | re:\bthe (?:answer|question|problem) isn'?t\b | stops being … starts being
-Check (de): nicht nur … sondern auch | re:\bes geht nicht um [^.]{1,60}, sondern\b | re:\bdas ist kein [^.]{1,40}\. das ist\b | re:\bnicht [^.,]{1,40}\. sondern\b
-Threshold: the German "nicht nur … sondern auch" counts at 2 per text.
+Check (de): ~nicht nur … sondern auch | re:\bes geht nicht um [^.]{1,60}, sondern\b | re:\bdas ist kein [^.]{1,40}\. das ist\b | re:\bnicht [^.,]{1,40}\. sondern\b
+Threshold (de): 2 per text
 
 ### S2 · Invented contrast-pair mirroring
 Tier P1.
@@ -413,9 +415,9 @@ Tier P1.
 - **Guard:** CV bullets and headings (fragments by design); captions; the LinkedIn register (relaxed); one short sentence that carries a new fact; a single deliberate fragment.
 - **Fix:** keep a fragment that earns its emphasis; fold the rest into ordinary sentences using only the source's claims. Cut a closer that repeats. Vary paragraph endings. Do not create staccato while fixing other patterns.
 - **From:** A-manufactured-punchlines-staccato, H-2, S-DramaticFragmentation, S-RhythmPatterns ("Every paragraph ends punchily", "Staccato fragmentation"), S-Rule6 ("End paragraphs differently").
-Check (en): that's the real win | read that again | let that sink in | that's it. that's | re:\b(?:[A-Za-z]+\. ){2,}[A-Za-z]+\.(?=\s|$) | re:\b[A-Z]{4,}\b
-Check (de): lies das nochmal | lesen Sie das noch einmal | re:\b(?:[A-Za-zÄÖÜäöüß]+\. ){2,}[A-Za-zÄÖÜäöüß]+\.(?=\s|$)
-Threshold: the ALL CAPS and dotted-word markers count at 2 per text.
+Check (en): that's the real win | read that again | let that sink in | that's it. that's | ~re:\b(?:[A-Za-z]+\. ){2,}[A-Za-z]+\.(?=\s|$)
+Check (de): lies das nochmal | lesen Sie das noch einmal | ~re:\b(?:[A-Za-zÄÖÜäöüß]+\. ){2,}[A-Za-zÄÖÜäöüß]+\.(?=\s|$)
+Threshold: 2 per text
 
 ### S5 · Reversal tricks
 Tier P2, judgment only.
@@ -596,7 +598,7 @@ Tier P2, weak alone.
 - **Guard:** three real items; lists that are simply true (common in technical and scientific writing); deliberate rhetoric.
 - **Fix:** check that each item adds a distinct idea; merge, develop the strongest, or vary the structure. Never add or remove an item to meet a rhythm quota. stop-slop's "two items beat three" applies under `strict`.
 - **From:** A-rule-of-three, A-colon-into-a-triple, H-6, S-RhythmPatterns (three-item lists), S-Rule6 ("Two items beat three"), M-36a, W (Trikolon).
-Threshold: 3 triads per 300 words.
+Density (model): 3 triads per 300 words.
 
 ### R2 · Hedging: padding and stacks
 - **R2a Hedge padding** (P2, weak alone): empty softeners and single qualifiers that add no real uncertainty ("it could be argued", "to some extent", "in some cases it may"); stop-slop's "no softeners, no hedges"; German "kann"-density ("Dies kann dazu beitragen, ... zu ermöglichen", "kann hilfreich sein") and "gewissermaßen", "in gewisser Weise", "ein Stück weit". `off` in science (a single calibrated hedge is required there, `genre-science.md`, SCI-2).
@@ -606,7 +608,7 @@ Threshold: 3 triads per 300 words.
 - **From:** A-hedging, A-hedge-stacked-predictions, H-9, S-Rule7 ("Skip softening"), S-Adverbs ("no hedges"), M-15, M-15a (corrected: Modalwörter, not Modalpartikeln).
 Check (en): re:\b(?:could|may|might)\s+(?:(?!not\b|never\b|hardly\b|scarcely\b|barely\b)\w+\s+)?(?:potentially|eventually|ultimately|possibly|conceivably)\b | re:\b(?:potentially|eventually|ultimately)\s+(?:could|may|might)\b | might arguably | it could be argued
 Check (de): könnte möglicherweise | könnte eventuell | eventuell vielleicht | möglicherweise vielleicht | ließe sich möglicherweise | würde gegebenenfalls | re:\bunter Umständen\b[^.]{0,40}\bkönnte\b
-Threshold: German "kann"/"können" hedges count at 4 per 100 words.
+Density (model): German "kann"/"können" hedges count at 4 per 100 words (the script counts this).
 
 ### R3 · Parenthetical hedging
 Tier P2.
@@ -623,9 +625,9 @@ Tier P2, weak alone.
 - **Guard:** ordinary German connectors (Dabei, Gleichzeitig, Folglich, Außerdem, Allerdings) are never findings on their own; academic prose uses connectors (relaxed there); a "however" where the relation is a real contrast.
 - **Fix:** restructure so the connection is obvious, or use "and", "also", "but"; "und", "auch", "aber". Do not overuse any single replacement.
 - **From:** A-transitions, S-SentenceStarters ("So" paragraph starters), M-12 (corrected), M-25, W (Konjunktionen).
-Check (en): ^moreover | ^furthermore | ^additionally | ^in addition, | ^that said | ^that being said | ^ultimately,
-Check (de): ^darüber hinaus | ^des Weiteren | ^zudem | ^ferner | ^nichtsdestotrotz | ^letztendlich | zum einen … zum anderen
-Threshold: 2 per paragraph, or 3 per 300 words.
+Check (en): ~^moreover | ~^furthermore | ~^additionally | ~^in addition, | ~^that said | ~^that being said | ~^ultimately,
+Check (de): ~^darüber hinaus | ~^des Weiteren | ~^zudem | ~^ferner | ~^nichtsdestotrotz | ~^letztendlich | ~zum einen … zum anderen
+Threshold: 2 per paragraph
 
 ### R5 · Filler, signposts, and importance markers
 Tier P1 for "It is important to note"-type phrases; weak alone for the single words.
@@ -633,9 +635,9 @@ Tier P1 for "It is important to note"-type phrases; weak alone for the single wo
 - **Guard:** "In summary" opening a conclusion paragraph in science; German essay and thesis conclusions ("Zusammenfassend", "Abschließend", heading "Fazit"); "Es ist zu beachten, dass" in manuals; "Grundsätzlich" in legal text (as a rule, exceptions exist); one "notably" in a long piece (density: one per 2,000 words is fine, three in 500 is a finding).
 - **Fix:** state the fact; let it carry its own weight.
 - **From:** A-filler-phrases, A-confidence-calibration-phrases, A-transitions (In conclusion, When it comes to, At the end of the day, It's worth noting), S-FillerPhrases, M-16, M-30, M-31 (all corrected; see `lang-de.md`, DE-7), W (redaktionelle Kommentare, Zusammenfassungen), N (impersonal openers).
-Check (en): it is important to note | it's important to note | it's worth noting | it is worth noting | it should be noted | the reality is that | when it comes to | at the end of the day | in terms of | ^in conclusion | ^to summarize | without a doubt | ^interestingly | ^notably | ^importantly | ^undoubtedly
-Check (de): es ist wichtig zu betonen | es ist wichtig zu beachten | es ist anzumerken | es sei darauf hingewiesen | bemerkenswert ist, dass | ^interessanterweise | zusammenfassend lässt sich sagen | abschließend lässt sich festhalten | es lässt sich festhalten | insgesamt lässt sich sagen | ^es zeigt sich, dass | ^es wird deutlich, dass | wenn es um
-Threshold: single-word markers count at 3 per 500 words.
+Check (en): it is important to note | it's important to note | it's worth noting | it is worth noting | it should be noted | the reality is that | when it comes to | at the end of the day | in terms of | ^in conclusion | ^to summarize | ~without a doubt | ~^interestingly | ~^notably | ~^importantly | ~^undoubtedly
+Check (de): es ist wichtig zu betonen | es ist wichtig zu beachten | es ist anzumerken | es sei darauf hingewiesen | bemerkenswert ist, dass | ~^interessanterweise | zusammenfassend lässt sich sagen | abschließend lässt sich festhalten | es lässt sich festhalten | insgesamt lässt sich sagen | ^es zeigt sich, dass | ^es wird deutlich, dass | wenn es um
+Threshold: 3 per 500 words
 
 ### R6 · Dashes as the universal connector
 Tier P2, weak alone (one dash is weak; a text full of them is not).
@@ -643,9 +645,10 @@ Tier P2, weak alone (one dash is weak; a text full of them is not).
 - **Guard:** ranges (2019–2022, pp. 10–12, 03/2021 – 06/2023) are en dashes by rule; the list separator after a bold lead term or a link ("- **Term** — description"); version headings in changelogs ("## 1.2.0 — 2026-09-01"); code, commands, paths, URLs; a voice sample that uses dashes (match its rate); a house style that uses them deliberately (the guide wins the mechanic, the habit is still noted). Dash rate is a writing-quality note, not an authorship signal: usage has varied by model generation.
 - **Fix:** replace with a period, comma, colon, or parentheses, or rewrite the sentence. Never add dashes in a rewrite ("em-dash theatrics").
 - **From:** A-em-dashes (with list-item carve-out), H-8, S-Rule6 ("No em dashes"), S-RhythmPatterns, S-QuickChecks, M-18 (corrected), W (corrected: the German en dash is correct).
-Check (en): — | re:(?<=\s)--(?=\s)
-Check (de): — | re:(?<=\s)--(?=\s)
-Threshold: English 1 per 1,000 words; German spaced en dash 3 per 300 words.
+Check (en): ~— | ~re:(?<=\s)--(?=\s)
+Check (de): — | re:(?<=\s)--(?=\s) | ~~re:(?<=\s)–(?=\s)
+Threshold (en): 1 per 1000 words
+Threshold (de): 3 per 300 words
 
 ### R7 · Repeated openings and cloned skeletons
 Tier P2, weak alone (`extra` for CV bullets).
@@ -684,7 +687,7 @@ Tier P2, weak alone (stop-slop's blanket rule, relaxed by genre; `off` in scienc
 - **Guard:** adverbs that carry meaning (only, not, rarely, approximately, independently, statistically significantly, jointly, gern as politeness); German modal particles.
 - **Fix:** cut the adverb or show the degree with a sourced fact. Emphasis adverbs are covered more strictly by I8.
 - **From:** S-Rule1 ("all adverbs"), S-Adverbs, S-WordPatterns, S-QuickChecks ("Any adverbs? Kill them.").
-Threshold: 4 emphasis adverbs per 100 words.
+Density (model): 4 emphasis adverbs per 100 words.
 
 ### R12 · Wh- and "So" openers
 Tier P2, weak alone (stop-slop rule; `off` in science and CVs).
@@ -753,7 +756,7 @@ Tier P1.
 - **Guard:** CV conventions (job titles, employers); proposals and responses to reviewers (bold labels are convention); a bold hook on LinkedIn (relaxed).
 - **Fix:** strip most bold; lead the sentence with the key point instead. Strip redundant labels; turn a labeled list into prose only when the labels carry nothing and the scope allows. A label period becomes a colon with a lowercase gloss, or drop the label.
 - **From:** A-bold-overuse, A-inline-header-lists, A-list-label-periods, H-19, M-20.
-Threshold: 4 bold phrases per text.
+Density (model): more than 3 bold phrases per text (the script counts this).
 
 ### M2 · Decorative headings and emoji
 Tier P2.
@@ -784,7 +787,7 @@ Tier P0 on LinkedIn and investor texts; P2 on blogs.
 - **Guard:** not tags: issue and PR numbers (#88, owner/repo#88), 6- and 8-digit hex colours containing a digit (#1a2b3c), C preprocessor directives (#include), URL fragments, Markdown headings, anything in code. Channel names (#general) count, as they are the same token.
 - **Fix:** two or three specific tags, or none.
 - **From:** A-hashtag-stuffing, avoid-ai-writing-multilingual FR #44 (lead).
-Threshold: 6 per text (script); 5 soft on linkedin and investor.
+Density (model): 6 or more per text; 5 is a soft tell on linkedin and investor (the script counts this).
 
 ### M5 · Quotation-mark and typography mismatch
 Tier P2, weak alone.
@@ -805,8 +808,8 @@ Tier P2, weak alone. AI link uncertain: these are a German style problem whoever
 - **Guard:** established loanwords (Team, Software, Feedback, Workshop, Know-how, Marketing, Start-up, E-Mail, Laptop, Meeting, Management, Projekt); technical terms of the field (Machine Learning, Pipeline, Framework, Deployment, Stakeholder in project management); terms used in the job posting (mirror the posting); IT CVs where English is the domain language; the writer's established voice.
 - **Fix:** the German word when it is just as precise (Erkenntnisse, Herausforderung, Wirkung, Denkweise, Fähigkeiten, zusätzlich); otherwise keep the term.
 - **From:** N (the user's brief; Duden and German editorial practice), M-Tier3 (Best Practices, State of the Art).
-Check (de): performen | performt | Learnings | Mindset | Gamechanger | Game Changer | nice to have | on top | leveragen | upskillen | committed sein | Commitment
-Threshold: 3 per text.
+Check (de): ~performen | ~performt | ~Learnings | ~Mindset | ~Gamechanger | ~Game Changer | ~nice to have | ~on top | ~leveragen | ~upskillen | ~committed sein | ~Commitment
+Threshold (de): 3 per text
 
 ### G2 · English calques and interference
 Tier P2.

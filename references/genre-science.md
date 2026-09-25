@@ -64,7 +64,7 @@ Upgrade words (de): zeigt | belegt | beweist | bestätigt | weist nach | bewirkt
 
 Calibrated hedging is part of scientific honesty. The task is to put the right amount of uncertainty in the right place.
 
-- One hedge per claim, placed on the uncertain part. "These results suggest that X contributes to Y" hedges once. "These results could potentially suggest that X may contribute to Y" hedges three times (R2b).
+- One hedge per claim, placed on the uncertain part. "These results suggest that X contributes to Y" hedges once. "These results could potentially suggest that X may contribute to Y" hedges three times (R2b). A hedge verb (suggests, indicates, points to, is consistent with; legt nahe, deutet darauf hin) is already the hedge: "may suggest" and "legt nahe, dass ... könnte" hedge twice. Choose the hedge verb or the modal, not both.
 - Do not hedge facts about your own methods and data. "We may have used 40 samples" is wrong; "we used 40 samples" is right.
 - Do not hedge and boost the same claim ("may clearly show", "could definitely", "könnte eindeutig").
 - Do not remove a hedge the source has. Deleting "may" is an upgrade (F2). Adding a hedge to a claim the source states plainly is a downgrade (F2), unless the user asks for a more cautious claim.

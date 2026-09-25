@@ -102,6 +102,7 @@ The script flags any of these words that appear in the output but not in the sou
 - Do not convert units or currencies unless the user asks.
 - A range stays a range.
 - Vague quantities ("several", "numerous", "zahlreiche") are acceptable when that is all the source knows; do not replace them with numbers.
+- A result with no measure at all ("resulting in improved code quality", "enhanced performance", "increased efficiency", "verbesserte Codequalität", "gesteigerte Effizienz") is a claim without evidence. Flag it and ask what changed and how the user knows; offer to cut the result clause if there is no answer.
 
 ## CV-6 Summary lines
 
@@ -134,7 +135,7 @@ Tailoring changes selection, order, and wording. It never changes facts.
 3. Reorder: put the most relevant role, project, or bullet first within its section. Reverse-chronological order of roles stays.
 4. Select: cut or shorten bullets that support nothing in the posting, if space is tight.
 5. Reword to the posting's terms only when the thing is the same thing. "Customer support" may become the posting's "client services" if the work matches. "Python" does not become "Django"; "used Excel" does not become "financial modelling". When unsure, ask.
-6. Summary (if any): lead with the two requirements the CV proves best.
+6. Summary (if any): lead with the two requirements the CV proves best, in the CV's own terms. A summary may not generalize a fact into the posting's wording: "on call for the order system" does not become "on call for production systems", and "moved three services into Docker" does not become "runs containerized services".
 7. Report gaps to the user: requirements marked "not shown". Never add them. Suggest what the user could add if it is true ("If you have used Terraform, add where").
 8. Keywords appear naturally where true. No keyword blocks, no hidden text, no white-on-white lists. Applicant tracking systems parse plain layouts best: standard headings, one column, text rather than images, dates in one consistent format.
 

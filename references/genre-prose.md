@@ -181,6 +181,6 @@ Run the tests that fit the type. Each failure is a finding with the test's ID.
 5. Logistics the posting asks for are present, from the user, or flagged as `[NEED: ...]`.
 6. The closing states the next step without formulas.
 7. Register and address forms are consistent (G4 for German).
-8. The German Anschreiben follows DIN 5008 layout conventions, or the user has chosen otherwise.
+8. The German Anschreiben follows DIN 5008 conventions, or the user has chosen otherwise: no "Betreff:" label, comma after the Anrede and lowercase continuation, no comma or period after "Mit freundlichen Grüßen" (G4). Check the input's closing, not only the rewrite's.
 9. No chat residue, placeholders, or invented quotes (C1, F3, F1).
 10. The writer's voice survives: sentence length, word choice, punctuation, and any voice sample.

@@ -31,7 +31,7 @@ This table lowers genre settings for German text. `on` means "keep the genre set
 ## DE-1 Typography
 
 - Quotation marks: „Beispiel“ (lower 99, upper 66) in Germany and Austria; »Beispiel« in books; «Beispiel» in Switzerland. Nested: ‚…‘. Keep the document's choice consistent.
-- Gedankenstrich: en dash with spaces: "Das war – wie erwartet – zu spät." Bis-Strich: en dash without spaces for ranges: "2019–2022", "S. 10–12". Bindestrich (hyphen) for compounds: "E-Mail-Adresse".
+- Gedankenstrich: en dash with spaces: "Das war – wie erwartet – zu spät." Bis-Strich: en dash without spaces for ranges: "2019–2022", "S. 10–12". For longer ranges such as month/year spans in a Lebenslauf, the spaced form "03/2021 – 06/2023" is common and acceptable; keep one form throughout the document. Bindestrich (hyphen) for compounds: "E-Mail-Adresse".
 - Compounds are written together or hyphenated, never split by a space: "Softwareentwickler" or "Software-Entwickler", not "Software Entwickler". A split compound is English interference (R17, DE marker).
 - Numbers: decimal comma (3,5), thousands with a point or a narrow space (12.500 or 12 500). Four-digit numbers often without separator (2500).
 - Percent and units with a space: "5 %", "20 °C", "3 km" (DIN 5008, Duden).
@@ -48,7 +48,7 @@ This table lowers genre settings for German text. `on` means "keep the genre set
 - "Sie", "Ihnen", "Ihr" in formal address are always capitalized. "du" and "dein" may be written lowercase or capitalized in letters and emails (both correct since the 2006 reform); keep one form.
 - Never mix "Sie" and "du" addressing the same person or audience in one text (G4).
 - Formal letters and applications: "Sie". LinkedIn and startup culture: "du" is common in some communities. Follow the user or the recipient's own usage.
-- Closings: "Mit freundlichen Grüßen" (formal), "Freundliche Grüße", "Viele Grüße", "Beste Grüße" (neutral), "Liebe Grüße", "LG" (private only).
+- Closings, always without a comma or period after them: "Mit freundlichen Grüßen" (formal), "Freundliche Grüße", "Viele Grüße", "Beste Grüße" (neutral), "Liebe Grüße", "LG" (private only).
 
 ## DE-3 Gender-inclusive language
 

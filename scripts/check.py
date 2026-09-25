@@ -47,7 +47,8 @@ class Entry:
 
 
 def parse_catalog(path=os.path.join(REFS, "patterns.md")):
-    text = open(path, encoding="utf-8").read()
+    with open(path, encoding="utf-8") as handle:
+        text = handle.read()
     entries = {}
     current = None
     for line in text.splitlines():
@@ -120,7 +121,7 @@ def compile_items(spec):
                 elif part and re.match(r"\w", part[-1]):
                     piece += r"\b"
                 pieces.append(piece)
-            source = r"[^.!?\n]{0,60}?".join(pieces)
+            source = r"[^.!?\n]{0,100}?".join(pieces)
             if start:
                 source = SENTENCE_START + source
         try:
@@ -136,8 +137,9 @@ def parse_settings(path):
     if not os.path.exists(path):
         return table
     columns = None
-    for line in open(path, encoding="utf-8"):
-        line = line.rstrip("\n")
+    with open(path, encoding="utf-8") as handle:
+        lines = handle.read().splitlines()
+    for line in lines:
         if line.startswith("| ID |"):
             columns = [c.strip() for c in line.strip("|").split("|")]
             continue
@@ -163,7 +165,9 @@ def parse_upgrade_words(genre):
         path = os.path.join(REFS, "genre-%s.md" % name)
         if not os.path.exists(path):
             continue
-        for line in open(path, encoding="utf-8"):
+        with open(path, encoding="utf-8") as handle:
+            lines = handle.read().splitlines()
+        for line in lines:
             m = re.match(r"^Upgrade words \((en|de)\): (.+)$", line.strip())
             if m:
                 words[m.group(1)] += [w.strip() for w in m.group(2).split("|") if w.strip()]
@@ -230,6 +234,19 @@ def detect_language(text):
 
 def blank(text, start, end):
     return text[:start] + re.sub(r"[^\n]", " ", text[start:end]) + text[end:]
+
+
+FENCE = r"^[ \t]{0,3}(`{3,}|~{3,})[^\n]*\n.*?(?:^[ \t]{0,3}\1[ \t]*$|\Z)"
+
+
+def mask_code(text):
+    """Blank fenced code and inline code, keeping offsets."""
+    out = text
+    for m in re.finditer(FENCE, out, re.MULTILINE | re.DOTALL):
+        out = blank(out, m.start(), m.end())
+    for m in re.finditer(r"`[^`\n]+`", out):
+        out = blank(out, m.start(), m.end())
+    return out
 
 
 def mask_protected(text):
@@ -448,7 +465,9 @@ def fact_findings(output, source, lang, allow=()):
             missing = not any(value.endswith(p[-7:]) or p.endswith(value[-7:]) for p in known.phones if len(p) >= 7)
             note = "phone number not in source"
         elif kind == "code":
-            missing = value not in known.codes and value not in known.words
+            parts = [p for p in re.split(r"[-_]", raw.lower()) if re.search(r"\d", p)]
+            missing = (value not in known.codes and value not in known.words
+                       and not all(p in known.words or p in known.codes for p in parts))
             note = "code or name with digits not in source"
         elif kind in ("number", "spelled"):
             values = value[1]
@@ -592,6 +611,7 @@ def scan(text, genre=None, column=None, lang=None, source=None, allow=(), strict
         column = DEFAULT_COLUMN[genre]
     settings = Settings(genre, column, lang, strict, gentle, entries)
     masked = mask_protected(text)
+    code_masked = mask_code(text)
     paras = paragraphs(masked)
     words = word_count(masked)
     raw_hits = []   # (eid, offset, text, note, density)
@@ -599,8 +619,9 @@ def scan(text, genre=None, column=None, lang=None, source=None, allow=(), strict
     for entry in entries.values():
         if settings.level(entry.id) == "off":
             continue
+        haystack = code_masked if entry.id == "C5" else masked
         for regex, density, label in entry.checks.get(lang, []):
-            for m in regex.finditer(masked):
+            for m in regex.finditer(haystack):
                 if not m.group(0).strip():
                     continue
                 start = m.start() + (len(m.group(0)) - len(m.group(0).lstrip()))

@@ -92,12 +92,17 @@ Only when asked, or under MO-2a with a request for improvement.
 1. Mark the findings, strongest first, including paragraph-scale shapes (a contrast split across sentences, three parallel examples, the same closer after every section).
 2. Draft. Keep every supported claim; you may shorten, merge, split, and reorder within the scope. Add no fact, name, number, date, quote, or citation. An opinion or reaction only when the writer's voice has one. State each point naturally instead of patching phrases one at a time; if a sentence stays awkward, rewrite the paragraph around its main point.
 3. Second check (the second-pass audit): read the draft as a reader. What still reads as template? Search specifically for the five tells that most often survive a rewrite: a not-X-but-Y contrast, a one-line closer, a dash, a triad, a bold label. Then check facts: every number, name, date, title, rung on a ladder, and simultaneity claim in the draft is in the source, and nothing supported was lost (shape edits under R1, R2, and M1 drop facts most often).
+   Also check the draft against the language's own markers, including German split verbs ("gewinnt ... zunehmend an Bedeutung"), and against the claims: two source claims merged into one sentence must keep their own subjects and scope ("route planning gains importance" does not become "AI gains importance in route planning").
 4. Repair only what the check found, within the pass budget.
 5. Marks pass: normalize quotation marks in the edited prose to the original's majority style, per family (double and single separately; straight marks after a digit are primes and stay). A house style overrides. Protected spans keep their marks. With the script: `python3 scripts/aiw_quotes.py <changed-prose> --reference <original> --write`; without it, apply by hand and say it was not verified mechanically.
 
 **Pass budget:** at most two editing passes by default: the rewrite and one corrective pass. `iterate 1` allows one pass; `iterate 2` or "keep going until clean" means the same two-pass ceiling and stops early. Audits, re-reads, and checks do not use a pass; any change they prompt does. A repair that restores the original still counts. Never cycle.
 
 **Never inject** (rewrite failures even when the result scores clean): fabricated speaker perspective ("in my experience", a possession, trial, or reaction the writer never recorded); manufactured stakes ("now more than ever"); forced contrarianism; performed candor ("let's be honest"); em-dash theatrics; staccato conversion (chopping sentences to fake rhythm); invented specifics. The test for each edit: did its information and stance come from the source or an explicit correction, and does the scope permit it?
+
+**Write the change list and the second check from the final text**, not from the plan. For every claimed change, and every claimed non-change ("I did not add X"), look at the final text and confirm it. A planned edit missing from the final text is unresolved, not done.
+
+**Examples** in any mode never contain made-up numbers, names, or details, even labeled illustrative; use `[NEED: ...]` slots inside them (F1).
 
 **Output** (the final text appears once; no superseded draft):
 

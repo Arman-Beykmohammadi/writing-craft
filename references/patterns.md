@@ -13,7 +13,7 @@ Entries describe candidate matches, not automatic edits. A candidate becomes a f
 - **Guard.** When not to flag. Guards beat markers.
 - **Fix.** Direction for the fix.
 - **From.** The source features merged into the entry, by their inventory ID (see README, feature map). A = avoid-ai-writing, H = humanizer, S = stop-slop, M = avoid-ai-writing-multilingual (German), W = German Wikipedia guide, N = new in this skill.
-- **Check (en) / Check (de).** Literal markers for the optional script. The model uses them as examples, not as the definition. Syntax: items separated by ` | `; case-insensitive; `…` joins two parts with a gap of up to 60 characters inside one sentence; a trailing `*` matches word stems; a leading `^` means sentence start; `re:` introduces a regular expression; a leading `~` marks a density item that counts at the entry's Threshold or, below it, inside a cluster; `~~` marks an item that counts only at the Threshold.
+- **Check (en) / Check (de).** Literal markers for the optional script. The model uses them as examples, not as the definition. Syntax: items separated by ` | `; case-insensitive; `…` joins two parts with a gap of up to 100 characters inside one sentence (German splits verbs around long insertions); a trailing `*` matches word stems (the gap `…` spans up to 100 characters); a leading `^` means sentence start; `re:` introduces a regular expression; a leading `~` marks a density item that counts at the entry's Threshold or, below it, inside a cluster; `~~` marks an item that counts only at the Threshold.
 - **Threshold.** Script density rule for `~` items, in the form `Threshold: N per text | paragraph | M words`, optionally for one language (`Threshold (de): ...`). A density inside a text window of M words also counts when the text is shorter than M words.
 - **Density (model).** A density rule the model applies; the script checks some of these with built-in counters.
 
@@ -66,7 +66,7 @@ Modifiers the user can request (see `modes.md`): `strict` raises every `relaxed`
 | 8 | C2 | Flattery of the reader | P0 | |
 | 9 | C3 | Acknowledgment loops | P0 | |
 | 10 | C4 | Reasoning-chain artifacts | P0 | |
-| 11 | I1 | Significance inflation | P0 | |
+| 11 | I1 | Significance inflation | P1 (P0 where set to extra) | |
 | 12 | M4 | Hashtag stuffing | P0 (P2 on blog) | |
 | 13 | I4 | Overused vocabulary | P1 | tiers 2 and 3 |
 | 14 | S1 | Not X but Y | P1 | |
@@ -100,7 +100,7 @@ Modifiers the user can request (see `modes.md`): `strict` raises every `relaxed`
 | 42 | R5 | Filler, signposts, importance markers | P1 | most markers |
 | 43 | G1 | Needless Anglicisms (German) | P2 | yes |
 | 44 | G2 | English calques and interference (German) | P2 | |
-| 45 | G4 | Address and register slips (German) | P1 | |
+| 45 | G4 | Address, register, and letter-convention slips (German) | P1 | |
 | 46 | R18 | Noun-heavy style (Nominalstil, zombie nouns) | P1 (DE), P2 (EN) | EN |
 | 47 | I7 | Novelty inflation and invented labels | P2 | |
 | 48 | I11 | Vague association | P2 | |
@@ -142,7 +142,7 @@ These entries protect the content. They apply in every genre, language, and mode
 Tier F.
 - **Looks like:** a number, name, date, title, metric, percentage, sample size, statistic, citation, reference, DOI, URL, tool, employer, degree, grade, award level, headcount, budget, duration, result, quote, product capability, customer, or personal experience that the user's material does not contain. Also vague quantities presented as findings ("hundreds of users", "dozens of", "mehrere Hundert", "zahlreiche Kunden") and implied numbers ("doubled", "halved", "tripled", "verdoppelt", "halbiert") without support. Also invented speaker experience: "I've seen this a hundred times", "in my experience", "I have one on my desk", "Ich erinnere mich noch gut", a reaction or opinion the writer never expressed, or a first-person trial when drafting in someone else's voice.
 - **Guard:** numbers and names copied exactly from the source; well-known public facts used as neutral illustration when the user asks for them; derived numbers the user explicitly asked for (show the calculation). Fiction content (general guard 7).
-- **Fix:** keep the source's wording. In Draft mode write `[NEED: what is missing]`. In Rewrite mode keep the vaguer original or ask. A fabricated specific is worse than the vague phrase it replaced; specificity is the most tempting fix because it reads better. Never "round up" to make a claim cleaner ("37%" stays "37%").
+- **Fix:** keep the source's wording. In Draft mode write `[NEED: what is missing]`. In Rewrite mode keep the vaguer original or ask. A fabricated specific is worse than the vague phrase it replaced; specificity is the most tempting fix because it reads better. Never "round up" to make a claim cleaner ("37%" stays "37%"). Never show example versions with made-up numbers, names, or details, even when labeled "illustrative": a user may paste them. Put `[NEED: ...]` slots inside examples instead ("across [NEED: number] wards").
 - **From:** A-never-inject (invented specifics, fabricated speaker perspective), A-source-fidelity, A-safe-no-invention, H-Process step 2, H-README-Lisbon (lesson: ask instead of inventing), M-InventedFacts (lesson), N.
 Check (en): re:\b(?:hundreds|thousands|dozens|scores) of\b | doubled | tripled | quadrupled | halved | in my experience | I've seen this
 Check (de): re:\b(?:Hunderte|Tausende|Dutzende)\b | verdoppelt | verdreifacht | halbiert | meiner Erfahrung nach | aus eigener Erfahrung
@@ -326,11 +326,11 @@ Check (de): über das niemand spricht | was Ihnen niemand sagt | was dir niemand
 ### I8 · Hollow intensifiers
 Tier P1 for genuine/genuinely, truly, quite frankly, to be honest, let's be clear, it's worth noting; weak alone for the other adverbs.
 - **Looks like:** words that assert intensity or sincerity instead of showing it. EN: genuine, genuinely, truly, real (as in "a real improvement"), quite frankly, to be honest, let's be clear, it's worth noting that, actually (emphasis only), really, just, literally, honestly, simply, deeply, fundamentally, inherently, inevitably, interestingly, importantly, crucially, highly, successfully (in CVs), incredibly. Telling instead of showing: "This is genuinely hard", "This is what leadership actually looks like", "actually matters". Performative emphasis: "creeps in", "I promise", "They exist, I promise". Boosters in science: clearly, undoubtedly, remarkably, strikingly. DE: wirklich, echt, absolut, total, extrem, ehrlich gesagt, tatsächlich (emphasis only), zutiefst, schlichtweg, eindeutig (booster), zweifellos, erfolgreich (as filler before every noun), hochgradig.
-- **Guard:** "actually" marking a specific correction the sentence names ("we expected a hit; it was actually a miss"); "just" meaning "only" or "a moment ago"; "really" in quoted speech; German modal particles (ja, doch, halt, eben, mal) carry tone and are not intensifiers; "genuine" meaning authentic ("a genuine Stradivarius").
+- **Guard:** "honestly", "to be honest", "ehrlich gesagt" inside a casual or personal sentence are ordinary speech ("Ehrlich gesagt hatte ich ja Bammel"); only a staged opener before a routine claim (S8) or repeated use counts; "actually" marking a specific correction the sentence names ("we expected a hit; it was actually a miss"); "just" meaning "only" or "a moment ago"; "really" in quoted speech; German modal particles (ja, doch, halt, eben, mal) carry tone and are not intensifiers; "genuine" meaning authentic ("a genuine Stradivarius").
 - **Fix:** delete; the default fix is deletion, not substitution. Show the degree with a fact from the source if one exists.
 - **From:** A-hollow-intensifiers, S-Adverbs (specific offenders), S-TellingNotShowing, S-PerformativeEmphasis, H-12 (actually), N (German, science boosters).
-Check (en): genuinely | truly | quite frankly | to be honest | let's be clear | let us be clear | it's worth noting | this is genuinely | actually looks like | actually matters | I promise
-Check (de): ehrlich gesagt | schlichtweg | zutiefst | zweifellos
+Check (en): genuinely | truly | quite frankly | ^to be honest, | let's be clear | let us be clear | it's worth noting | this is genuinely | actually looks like | actually matters | I promise
+Check (de): ^ehrlich gesagt, | schlichtweg | zutiefst | zweifellos
 Density (model): the weak markers count at 3 per 300 words.
 
 ### I9 · Real/actual inflation
@@ -496,7 +496,7 @@ Tier P1 (`extra` in letters).
 - **Fix:** cut the scene-setting and keep the claim at the same confidence ("Imagine a world where every deploy is instant" → "Every deploy would be instant"). Moving context requires structural scope.
 - **From:** A-formulaic-openings, A-speculative-scenario-openers, A-transitions ("In today's", "In an era where"), S-FillerPhrases ("In today's [X]", "In a world where"), M-Tier3 (Zeitalter, schnell wandelnde Welt, heutige Zeit), N.
 Check (en): re:\bin today'?s\b | in an era where | in a world where | re:\bin the (?:rapidly |ever-?\s*)?(?:evolving|changing|expanding|growing|shifting) (?:world|landscape|realm|space|field|domain|era) of\b | in the digital age | has emerged as a | has become increasingly | re:\b(?:imagine|picture|envision) a (?:world|future|reality) (?:where|in which)\b
-Check (de): in der heutigen schnelllebigen Zeit | in der heutigen Zeit | im Zeitalter der | in einer sich rasant | in einer sich schnell wandelnden | in der modernen Arbeitswelt | stellen Sie sich eine Welt vor | stell dir eine Welt vor | gewinnt zunehmend an Bedeutung
+Check (de): in der heutigen schnelllebigen Zeit | in der heutigen Zeit | im Zeitalter der | in einer sich rasant | in einer sich schnell wandelnden | in der modernen Arbeitswelt | stellen Sie sich eine Welt vor | stell dir eine Welt vor | gewinnt … zunehmend an Bedeutung | gewinnen … zunehmend an Bedeutung
 
 ### S14 · Stock reactions and lingering attention
 Tier P1 (a style heuristic; upstream gives it zero authorship weight).
@@ -602,12 +602,12 @@ Density (model): 3 triads per 300 words.
 
 ### R2 · Hedging: padding and stacks
 - **R2a Hedge padding** (P2, weak alone): empty softeners and single qualifiers that add no real uncertainty ("it could be argued", "to some extent", "in some cases it may"); stop-slop's "no softeners, no hedges"; German "kann"-density ("Dies kann dazu beitragen, ... zu ermöglichen", "kann hilfreich sein") and "gewissermaßen", "in gewisser Weise", "ein Stück weit". `off` in science (a single calibrated hedge is required there, `genre-science.md`, SCI-2).
-- **R2b Stacked hedges** (P1): two or more qualifiers on one claim, each cancelling the next: could potentially, may eventually, might ultimately, might arguably, could possibly, potentially could, it's also possible that ... may, to be fair ... could. DE: könnte möglicherweise, könnte eventuell, eventuell vielleicht, unter Umständen ... könnte, ließe sich möglicherweise, möglicherweise vielleicht, würde gegebenenfalls.
+- **R2b Stacked hedges** (P1): two or more qualifiers on one claim, each cancelling the next: could potentially, may eventually, might ultimately, might arguably, could possibly, potentially could, it's also possible that ... may, to be fair ... could. A hedge verb already carries the uncertainty, so a modal on top of it is a stack: may suggest, might indicate, could point to, may be consistent with. DE: könnte möglicherweise, könnte eventuell, eventuell vielleicht, unter Umständen ... könnte, ließe sich möglicherweise, möglicherweise vielleicht, würde gegebenenfalls; modal plus hedge verb: könnte darauf hindeuten, könnte nahelegen, legt nahe, dass ... könnte, deutet darauf hin, dass ... möglicherweise.
 - **Guard:** qualifiers the source supports and the meaning needs; scope statements; legal and safety notices; real corrections; ordinary hedges ("perhaps", "tends to", "vermutlich") are human habits; hedges on different claims in one sentence are not a stack; "may not", "might never" (negators are not hedges).
 - **Fix:** keep the one qualifier that carries the source's uncertainty, placed on the uncertain part. If the intended confidence is unclear and matters, leave it and ask rather than choosing a stronger claim (F2).
 - **From:** A-hedging, A-hedge-stacked-predictions, H-9, S-Rule7 ("Skip softening"), S-Adverbs ("no hedges"), M-15, M-15a (corrected: Modalwörter, not Modalpartikeln).
-Check (en): re:\b(?:could|may|might)\s+(?:(?!not\b|never\b|hardly\b|scarcely\b|barely\b)\w+\s+)?(?:potentially|eventually|ultimately|possibly|conceivably)\b | re:\b(?:potentially|eventually|ultimately)\s+(?:could|may|might)\b | might arguably | it could be argued
-Check (de): könnte möglicherweise | könnte eventuell | eventuell vielleicht | möglicherweise vielleicht | ließe sich möglicherweise | würde gegebenenfalls | re:\bunter Umständen\b[^.]{0,40}\bkönnte\b
+Check (en): re:\b(?:could|may|might)\s+(?:(?!not\b|never\b|hardly\b|scarcely\b|barely\b)\w+\s+)?(?:potentially|eventually|ultimately|possibly|conceivably)\b | re:\b(?:potentially|eventually|ultimately)\s+(?:could|may|might)\b | might arguably | it could be argued | re:\b(?:may|might|could)\s+(?:suggest|indicate|point to|imply|be consistent with)\b
+Check (de): könnte möglicherweise | könnte eventuell | eventuell vielleicht | möglicherweise vielleicht | ließe sich möglicherweise | würde gegebenenfalls | re:\bunter Umständen\b[^.]{0,40}\bkönnte\b | re:\bkönnten?\s+(?:darauf\s+hindeuten|nahelegen|darauf\s+hinweisen)\b | re:\b(?:legt|legen)\s+nahe,\s+dass\b[^.]{0,80}\bkönnten?\b | deutet darauf hin, dass … möglicherweise
 Density (model): German "kann"/"können" hedges count at 4 per 100 words (the script counts this).
 
 ### R3 · Parenthetical hedging
@@ -616,7 +616,7 @@ Tier P2.
 - **Guard:** parentheses that give examples, units, or references ("Tools (etwa X und Y)" is a normal German parenthetical listing, not a hedge).
 - **Fix:** give a real aside its own sentence; cut the rest.
 - **From:** A-parenthetical-hedging, M-14 (corrected).
-Check (en): re:\(\s*(?:and\s+)?(?:increasingly|notably|importantly|crucially|interestingly|perhaps)[,]?\s+[^)]{3,60}\) | re:\(\s*or\s+more\s+(?:precisely|accurately|specifically)[,]?\s+[^)]{3,60}\) | re:\(\s*though\s+to\s+be\s+fair | re:\(\s*at\s+least\s+(?:in\s+)?(?:theory|principle|part)
+Check (en): re:\(\s*(?:and,?\s+)?(?:increasingly|notably|importantly|crucially|interestingly|perhaps)[,]?\s+[^)]{3,60}\) | re:\(\s*or\s+more\s+(?:precisely|accurately|specifically)[,]?\s+[^)]{3,60}\) | re:\(\s*though\s+to\s+be\s+fair | re:\(\s*at\s+least\s+(?:in\s+)?(?:theory|principle|part)
 Check (de): re:\(\s*und zunehmend | re:\(\s*oder genauer gesagt | re:\(\s*und vielleicht noch wichtiger
 
 ### R4 · Transition connectors
@@ -826,13 +826,13 @@ Tier P2, weak alone.
 - **Fix:** move the completing verb forward, split the sentence, put the main point in the main clause (`lang-de.md`, DE-5).
 - **From:** N (Wolf Schneider, practice).
 
-### G4 · Address and register slips
+### G4 · Address, register, and letter-convention slips
 Tier P1.
-- **Looks like:** "Sie" and "du" mixed for the same reader; lowercase "sie/ihnen" for formal address; informal closings in formal texts ("LG", "Liebe Grüße" in an application); "Hallo" to a professor in a first contact; inconsistent gender-inclusive forms in one document.
-- **Guard:** a quotation; a deliberate register shift the writer explains.
-- **Fix:** one address form throughout (`lang-de.md`, DE-2, DE-3).
+- **Looks like:** "Sie" and "du" mixed for the same reader; lowercase "sie/ihnen" for formal address; informal closings in formal texts ("LG", "Liebe Grüße" in an application); "Hallo" to a professor in a first contact; inconsistent gender-inclusive forms in one document; DIN 5008 slips in letters: a comma or period after "Mit freundlichen Grüßen", the word "Betreff:" in the subject line, a capital letter after the comma of the Anrede when the next word is not a noun.
+- **Guard:** a quotation; a deliberate register shift the writer explains; private letters (DIN 5008 is a convention for business letters).
+- **Fix:** one address form throughout; Grußformel without punctuation (`lang-de.md`, DE-2, DE-3; `genre-prose.md`, PR-2).
 - **From:** N.
-Check (de): ^LG | ^Liebe Grüße | ^Lieben Gruß
+Check (de): ^LG | ^Liebe Grüße | ^Lieben Gruß | re:^[ \t]*Mit freundlichen Grüßen[ \t]*[,.!] | re:^[ \t]*Betreff:
 
 ---
 

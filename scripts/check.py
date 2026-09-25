@@ -160,7 +160,8 @@ def parse_settings(path):
 
 def parse_upgrade_words(genre):
     words = {"en": [], "de": []}
-    names = [genre] if genre else ["cv", "science", "prose"]
+    # CV ladders apply wherever a text makes claims about a person (letters, emails, posts).
+    names = sorted({genre, "cv"}) if genre else ["cv", "science", "prose"]
     for name in names:
         path = os.path.join(REFS, "genre-%s.md" % name)
         if not os.path.exists(path):
@@ -765,10 +766,10 @@ def scan(text, genre=None, column=None, lang=None, source=None, allow=(), strict
         for f in facts:
             line, col = line_col(text, f["offset"])
             findings.append({"id": f["id"], "tier": "F", "line": line, "col": col, "offset": f["offset"],
-                             "text": f["text"][:100], "note": f["note"]})
+                             "text": f["text"][:100], "note": f["note"], "compared": True})
         # F entries whose markers also occur in the source are the source's own words.
         src_lower = source.lower()
-        findings = [f for f in findings if not (f["tier"] == "F" and f["id"] != "F1" and f["id"] != "F2"
+        findings = [f for f in findings if not (f["tier"] == "F" and not f.get("compared")
                                                 and f["text"].lower() in src_lower)]
 
     unique = []
@@ -779,6 +780,7 @@ def scan(text, genre=None, column=None, lang=None, source=None, allow=(), strict
     unique.sort(key=lambda f: (TIER_ORDER.get(f["tier"], 9), f["line"], f["col"]))
     for f in unique:
         f.pop("offset", None)
+        f.pop("compared", None)
     return {"genre": genre, "section": column, "lang": lang, "words": words,
             "findings": unique, "needs": needs, "suppressed": suppressed}
 

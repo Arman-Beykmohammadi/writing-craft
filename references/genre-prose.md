@@ -69,6 +69,8 @@ Structure, for about 250 to 400 words on one page:
 4. **Closing (1 to 2 sentences).** The next step, stated plainly. No pleading, no over-thanking.
 5. Sign-off and name.
 
+If the user has not supplied a reason, the opening is exactly: `[NEED: why this role and this organization, in your words]` plus one plain sentence naming the role. No sentence about what sparked or drew the writer's interest.
+
 Openings to avoid:
 - Human clichés (flag as filler, not as AI tells): "I am writing to express my interest in", "Please accept this letter as my application for", "I believe I am the ideal candidate".
 - Template openings: "I am thrilled to submit my application for the esteemed position of", "Your company's commitment to innovation resonates deeply with me", "As a passionate and results-driven professional" (S14, I4, I3).
@@ -84,7 +86,7 @@ Layout follows DIN 5008 in most German applications. Details below reflect commo
 3. **Ort und Datum**, right-aligned: "Berlin, 25. September 2026" or "25.09.2026".
 4. **Betreff** without the word "Betreff", often bold: "Bewerbung als Datenanalyst (Kennziffer 26-114)". The reference number only from the user or the posting.
 5. **Anrede:** "Sehr geehrte Frau Dr. Keller," or "Sehr geehrter Herr Yilmaz,". Keep academic titles. If no name is known: "Sehr geehrte Damen und Herren," still works, but a name is better; "Guten Tag Alex Keller," is a neutral form when the gender is unknown. After the comma the first sentence starts with a lowercase letter unless it begins with a noun.
-6. **Einleitung:** Why this position and this organization, specifically. Avoid "hiermit bewerbe ich mich" and "mit großem Interesse habe ich Ihre Stellenanzeige gelesen": career advisors have discouraged these human clichés for decades. They are filler, not AI tells, and the critique should say so.
+6. **Einleitung:** Why this position and this organization, specifically, in the user's words. If the user has not supplied a reason, the Einleitung is exactly two parts: `[NEED: was Sie an dieser Stelle oder an <Organisation> konkret anspricht]` and one plain application sentence ("Ich bewerbe mich um die Stelle als ... (Kennziffer ...)."). No sentence about interest, motivation, or what "geweckt" the interest. Avoid "hiermit bewerbe ich mich" and "mit großem Interesse habe ich Ihre Stellenanzeige gelesen": career advisors have discouraged these human clichés for decades. They are filler, not AI tells, and the critique should say so.
 7. **Hauptteil:** Two or three requirements from the posting, each matched to evidence from the Lebenslauf. Not every sentence starts with "Ich" (R7), but do not contort sentences to avoid it.
 8. **Schluss:** Eintrittstermin or Kündigungsfrist, Gehaltsvorstellung if the posting asks (as Bruttojahresgehalt, number only from the user), and the wish for an interview. "Ich freue mich auf ein persönliches Gespräch." and "Über eine Einladung zu einem Vorstellungsgespräch würde ich mich freuen." are both acceptable. Some advisors call the Konjunktiv hesitant; this is a matter of taste, not a finding.
 9. **Grußformel:** "Mit freundlichen Grüßen", with no comma or period after it, then the signature and printed name.

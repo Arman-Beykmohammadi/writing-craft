@@ -1,0 +1,1 @@
+In our cross-sectional survey of 214 warehouse workers, longer night shifts could potentially suggest that sleep quality may possibly be associated with lower self-reported wellbeing. This might arguably indicate a relationship worth exploring.

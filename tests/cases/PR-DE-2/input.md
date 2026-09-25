@@ -1,0 +1,1 @@
+Nach drei Jahren im Einkauf wechsle ich im Oktober ins Controlling – intern, gleiches Team-Gebäude, neuer Schreibtisch. Ehrlich gesagt hatte ich ja ein bisschen Bammel, aber die Kolleg:innen haben mir den Einstieg leicht gemacht. Danke an Jana und Timo fürs Einarbeiten! Wer von euch hat den gleichen Schritt gemacht? Gerne per DM.

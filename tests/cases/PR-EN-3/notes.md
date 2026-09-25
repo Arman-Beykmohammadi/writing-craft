@@ -1,0 +1,7 @@
+- Me: finishing M.Sc. Environmental Engineering at Kessel Technical University, thesis due August 2026
+- Thesis: measuring microplastic particles in river sediment, built a density-separation setup, tested on 40 samples from two rivers
+- Want: PhD position in Prof. Lindqvist's group (Aquatic Particle Lab)
+- Why them: they work on microplastics in sediments (I read one of their papers but forgot the title, will check)
+- Funding: no scholarship yet, would apply for an advertised position or apply together for a scholarship
+- Available from October 2026
+- Attach CV and transcript

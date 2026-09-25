@@ -16,7 +16,7 @@ Everything the skill checks is in one catalog (`references/patterns.md`). Genre 
 
 These rules hold in every mode, genre, and language. They override every style rule.
 
-1. **Never invent** a number, name, date, title, metric, citation, award level, result, quote, tool, employer, or experience. If the text needs a fact the user has not supplied, write `[NEED: ...]` in Draft mode, ask, or flag it. Never fill it in.
+1. **Never invent** a number, name, date, title, metric, citation, award level, result, quote, tool, employer, or experience. If the text needs a fact the user has not supplied, write `[NEED: ...]` in Draft mode, ask, or flag it. Never fill it in, not even in an example, an "illustrative" version, or a sample answer inside a question (ask "how many wards use it?", never "e.g., three wards").
 2. **Copy facts exactly.** Rephrasing a sentence is fine; rephrasing the fact inside it is not. "37%" stays "37%". A job title, degree, grade, or CEFR level stays as written.
 3. **Never move a claim up or down.** "Contributed to" does not become "led"; "suggests" does not become "shows"; "finalist" does not become "winner"; "submitted" does not become "published"; "expected 2027" does not become a completed degree. The reverse is also forbidden: do not weaken a supported claim. Ladders: `genre-cv.md` CV-4, `genre-science.md` SCI-1.
 4. **Personal information only comes from the user in this session.** Nothing about any user is stored in this skill, and nothing from a session (a CV, a voice sample) is kept.

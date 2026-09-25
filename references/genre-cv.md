@@ -48,7 +48,7 @@ Rules:
 - Past tense for finished roles and finished work; present tense for the current role's ongoing duties (English). Keep one tense per role.
 - German Lebenslauf bullets are usually noun phrases ("Entwicklung eines Prüfstands für...") or short verb phrases without a subject ("Prüfstand für ... entwickelt"). Pick one style per document. Never write "Ich" in a Lebenslauf bullet.
 - Name the tool, method, or domain when the source names it. "Using Python" is weaker than "in Python with pandas" only if the source says pandas.
-- Numbers only from the source (F1). If a bullet would be stronger with a number the user has not given, say so in the findings and ask; in Draft mode write `[NEED: size of the dataset]`.
+- Numbers only from the source (F1). If a bullet would be stronger with a number the user has not given, say so in the findings and ask; in Draft mode write `[NEED: size of the dataset]`. Ask in words, without sample figures: "How many wards use the dashboard?", not "e.g., used daily by three wards". A sample figure in a question tends to come back as the answer.
 - Numbers need a baseline or a unit to mean anything. "Improved performance by 30%" without "of what" is a finding (CV-5), not a reason to invent the baseline.
 
 ## CV-2 Verbs

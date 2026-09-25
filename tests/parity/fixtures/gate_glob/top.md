@@ -1,0 +1,1 @@
+The deploy finished after the migration. The team checked logs, verified the database, and closed the incident.

@@ -1,0 +1,1 @@
+It is important to note that the token expires after 30 minutes.

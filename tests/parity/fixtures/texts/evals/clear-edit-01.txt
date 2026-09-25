@@ -1,0 +1,1 @@
+Absolutely! Our team will embark on a rewrite of the billing exporter next quarter. The current exporter drops rows when a report runs past its window.

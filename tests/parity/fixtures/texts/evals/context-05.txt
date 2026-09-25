@@ -1,0 +1,1 @@
+We could potentially ship on Tuesday if testing passes. The release notes are already drafted.

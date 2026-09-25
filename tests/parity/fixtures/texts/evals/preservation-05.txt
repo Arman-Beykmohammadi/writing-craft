@@ -1,0 +1,1 @@
+Moreover, see https://example.org/report?team=red&v=2 for the report. The query keys pick the team and the schema version.

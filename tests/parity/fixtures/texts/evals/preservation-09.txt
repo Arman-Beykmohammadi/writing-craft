@@ -1,0 +1,1 @@
+We did not find evidence that the patch caused the outage. The logs we pulled cover only the hour before the alert.

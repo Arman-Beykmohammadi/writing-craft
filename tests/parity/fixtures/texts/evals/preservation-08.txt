@@ -1,0 +1,1 @@
+The timeout is 500 ms. The retry window is 5 s. In conclusion, this changes everything.

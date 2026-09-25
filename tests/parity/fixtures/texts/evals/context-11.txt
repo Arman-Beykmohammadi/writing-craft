@@ -1,0 +1,1 @@
+The pilot might ultimately reshape how the whole support org works. What we measured is narrower: first-response time fell from 41 minutes to 26 minutes across 63 tickets.

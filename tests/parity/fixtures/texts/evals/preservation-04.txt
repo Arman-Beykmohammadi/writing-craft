@@ -1,0 +1,6 @@
+Certainly! Results:
+
+| Test | ms |
+|---|---|
+| A | 9 |
+| B | 12 |

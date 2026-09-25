@@ -1,0 +1,1 @@
+The storage cap is 750 GB per tenant, not 750 TB. Anything above the cap queues until the next billing cycle. Let me know if you need anything else!

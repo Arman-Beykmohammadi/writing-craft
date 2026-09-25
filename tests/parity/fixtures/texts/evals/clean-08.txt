@@ -1,0 +1,1 @@
+Read [the guide](https://example.org/guide?version=2) before upgrading.

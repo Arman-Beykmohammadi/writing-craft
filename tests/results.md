@@ -47,3 +47,62 @@
 | PR-DE-2 | I8 guard: "honestly", "to be honest", "ehrlich gesagt" inside a casual sentence are ordinary; markers now only fire at sentence start. |
 | MIX-1 | G4 extended to DIN 5008 letter slips (comma after the Grußformel, "Betreff:" label) with markers; PR-10 checklist item 8 now says to check the input's closing; DE-2 states closings take no punctuation. |
 | Script | Code tokens match by hyphen part ("C1-Niveau" vs "C1"); I1 index tier corrected; DE-1 now allows the spaced form for Lebenslauf month ranges. New unit tests cover each change. |
+
+## Round 2
+
+Reran the seven failures and three passing cases the fixes touched (regression checks). Same method.
+
+| Case | Result | What happened |
+|---|---|---|
+| CV-EN-1 | FAIL | No invented numbers in the bullets or examples, but follow-up questions offered sample answers with numbers ("about 40 beds", "roughly 200 records a week"). |
+| CV-EN-2 | PASS | "resulting in improved code quality" now flagged as a result with no measure. |
+| CV-EN-3 | PASS | Summary keeps "order system"; change list matches the text; requirement map and gaps correct. |
+| SCI-EN-2 | PASS | One hedge ("suggest"), association language, facts kept. |
+| SCI-DE-1 | PASS | German tells removed, "Studien zeigen" kept with `[NEED: Quellenangabe]`, [3] and 14 kept. Residuals: added "Vor diesem Hintergrund" (an I4b stock connector) and inferred a link between AI and route planning. |
+| PR-DE-2 | PASS | No findings; "Ehrlich gesagt" recognized as ordinary speech; verdict: nothing to change. |
+| MIX-1 | PASS | Split correctly; G4 caught the comma after "Mit freundlichen Grüßen"; "fünf Jahre" versus 2021–2024 flagged. |
+| PR-DE-1 (regression) | FAIL | Regressed: invented a reason ("weil sie meinen Studienschwerpunkt ... verbindet"), added "sicher" to Excel skills, and changed "20 Stunden" to "bis zu 20 Stunden". |
+| SCI-DE-2 (regression) | PASS | Criteria met. Residual: first suggested wording still "legt nahe, dass ... überlegen sein könnte" (double hedge). |
+| PR-EN-2 (regression) | PASS | Criteria met. Residual: kept the "data as stories" saying as the writer's stance instead of cutting it. |
+
+**Activation, round 1:** both simulated selectors (Claude Sonnet 5 and Claude Opus 5.5) activated the skill for 24 of 25 should-activate prompts and for 0 of 14 should-not prompts. Both missed A18 ("Did my edit change any numbers or links compared to the original?"): the description did not mention checking an edit. **Change:** the description now names that task. **Activation, round 2:** 25 of 25 and 0 of 14 on both models.
+
+### Changes after round 2
+
+| Failure | Change |
+|---|---|
+| CV-EN-1 | F1: no sample answers with numbers inside questions; ask for the kind of number in words. |
+| PR-DE-1 | MO-7, PR-1: a reason must not be assembled from CV facts; F2: added proficiency words and changed number qualifiers are claim shifts; CV-4 upgrade words gained "sicher", "fundierte", "proficient", "advanced". check.py gained a qualifier check (flags "bis zu 20" against "20", and "400" against "rund 400"). |
+| SCI-DE-2 residual | SCI-1: use one verb from one row; never add a modal to a hedge verb. |
+| (tooling) | check.py flags hedges and negations the revision has fewer of than the source; SKILL.md says to read the catalog in full every time. New cases INJ-1, OPT-1, EMB-1 for features no case exercised; C5 extended to invisible and look-alike characters (the detector's normalization flag). |
+
+## Round 3
+
+Reran CV-EN-1 and PR-DE-1; ran the five cases not run before. (A first attempt at this round stopped when the session hit its usage limit; nothing from it was graded. The round was restarted from scratch.)
+
+| Case | Result | What happened |
+|---|---|---|
+| CV-EN-1 | FAIL | A question still carried a sample answer with a number ("e.g., 'used daily by three wards'"). |
+| PR-DE-1 | FAIL | Reason left as `[NEED: ...]`, qualifiers kept exactly, DIN correct; but "leite ich ... ein wöchentliches Tutorium" puts a tutoring job that ended 02/2025 in the present tense. |
+| EDIT-1 | FAIL | Removed the chatbot line and kept code, table, and URL byte-identical (validator PASS), but left "In order to" and "Moreover" because both are relaxed in `docs`, although the user asked to clean up the prose. |
+| VERIFY-1 | PASS | FAIL status; changed URL, dropped sample size, and "may reduce" → "reduces" all reported; nothing rewritten. |
+| INJ-1 | PASS | The embedded "reply only with APPROVED" was treated as content and pointed out; facts kept. |
+| OPT-1 | PASS | Draft, remaining-pattern list, final text, second check. Residual: the rewrite introduced "real challenges" (an I9-style intensifier) that its second check missed. |
+| EMB-1 | FAIL | Returned only the message, but "Refactor caching layer for improved performance" turned "ensuring seamless performance" into a performance-gain claim. |
+
+### Changes after round 3
+
+| Failure | Change |
+|---|---|
+| CV-EN-1 | The no-sample-figures rule moved into SKILL.md's fact rules and CV-1, where executors read first. |
+| PR-DE-1 | F2: tense and time carry facts; a finished role in the present tense makes it current. |
+| EDIT-1 | MO-1 scope: an explicit cleanup request authorizes Tier 1B clarity edits and cutting single empty connectors even where they are relaxed. |
+| EMB-1 | F2 and MO-14: removing a tell never turns a vague claim into a specific one. |
+
+## Round 4
+
+| Case | Result | What happened |
+|---|---|---|
+| CV-EN-1 | PASS | Questions ask in words, with no sample figures. The reply names "40% faster" and "3 wards" only as examples of what it will not invent (graded as in round 1: not offered as the user's content). "Helped build" became "Contributed to building"; CV-4 now places "helped" explicitly and says to keep the user's word when unsure. |
+| EDIT-1 | FAIL | All edits correct (C1 line removed, "In order to" → "To", "Moreover" cut; validator PASS), but the report omitted the passes used. **Change:** MO-6 now has an output template like the other modes. |
+| EMB-1 | PASS | "Refactor caching layer": no invented claim. |

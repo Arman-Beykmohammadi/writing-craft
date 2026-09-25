@@ -80,7 +80,7 @@ A CV where every bullet has the same skeleton reads as filled in, not written. T
 
 F2 forbids moving a claim up or down a ladder. These are the CV ladders, lowest first. Copy the rung the source gives.
 
-- Role in work: supported, assisted < contributed to, worked on, was part of the team that < co-developed, co-led, shared responsibility for < led, headed, owned, managed.
+- Role in work: supported, assisted, helped (with) < contributed to, worked on, was part of the team that < co-developed, co-led, shared responsibility for < led, headed, owned, managed. When unsure which rung the user's own word sits on, keep the user's word.
 - German: unterstützt, mitgearbeitet an, beteiligt an < mitentwickelt, mitverantwortlich für < verantwortlich für < geleitet, federführend, leitend.
 - Competitions and awards: participant < nominated, shortlisted < finalist < honourable mention < third, second place < winner, first place. German: Teilnahme < Nominierung < Finale, Finalist:in < Auszeichnung, lobende Erwähnung < 3., 2. Platz < Sieg, 1. Platz, Gewinner:in.
 - Publications: in preparation < submitted < under review < revise and resubmit < accepted < in press < published. German: in Vorbereitung < eingereicht < in Begutachtung < angenommen < im Druck < veröffentlicht. A preprint is a preprint.

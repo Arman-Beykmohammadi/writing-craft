@@ -130,6 +130,14 @@ For named prose files in environments that can write files (Claude Code, desktop
 - Make minimal, targeted edits to justified, in-scope spans with the editor tool. Leave passages that are already fine untouched. Keep frontmatter, links, code, numbers, paths, identifiers, headings' structure.
 - Re-read the changed regions. Verify (MO-10) with `python3 scripts/aiw_validate.py <before> <after>` when possible.
 - Report, without dumping the file: file changed, each edit as location and before → after, passes used, verification status (executed or model-only), and what was left alone and why. If nothing was justified, the file is unchanged and 0 passes are reported.
+
+```
+Edited <file>
+Edits
+- L<line> (<section>): "<before>" → "<after>"  [<finding ID>]
+Left alone: <protected or intentional spans, and why>
+Editing passes: <n> of <limit> · Verification: <aiw_validate.py PASS/FAIL (executed) | model-only>
+```
 - Never touch other files or widen the scope.
 
 ## MO-7 Draft (new text from supplied material)

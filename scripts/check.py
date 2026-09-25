@@ -524,6 +524,27 @@ def qualifier_findings(output, source, lang):
     return findings
 
 
+HEDGES = {
+    "en": ["may", "might", "could", "possibly", "probably", "likely", "suggests", "suggest", "appears", "seems",
+           "perhaps", "potentially", "approximately", "not"],
+    "de": ["kann", "könnte", "könnten", "möglicherweise", "vermutlich", "wahrscheinlich", "dürfte", "scheint",
+           "legt nahe", "deutet darauf hin", "etwa", "nicht", "kein", "keine"],
+}
+
+
+def hedge_findings(output, source, lang):
+    """F2 candidates: hedges and negations that the revision has fewer of than the source."""
+    findings = []
+    for word in HEDGES.get(lang, HEDGES["en"]):
+        pattern = r"(?<!\w)%s(?!\w)" % re.escape(word)
+        before = len(re.findall(pattern, mask_code(source), re.I))
+        after = len(re.findall(pattern, mask_code(output), re.I))
+        if before > after:
+            findings.append({"id": "F2", "offset": 0, "text": word,
+                             "note": "'%s' appears %d time(s) in the source and %d in the revision: check for a removed hedge or negation" % (word, before, after)})
+    return findings
+
+
 def ladder_findings(output, source, lang, genre):
     words = parse_upgrade_words(genre).get(lang, [])
     src = source.lower()
@@ -740,7 +761,7 @@ def scan(text, genre=None, column=None, lang=None, source=None, allow=(), strict
 
     if source is not None:
         facts = (fact_findings(text, source, lang, allow) + ladder_findings(text, source, lang, genre)
-                 + qualifier_findings(text, source, lang))
+                 + qualifier_findings(text, source, lang) + hedge_findings(text, source, lang))
         for f in facts:
             line, col = line_col(text, f["offset"])
             findings.append({"id": f["id"], "tier": "F", "line": line, "col": col, "offset": f["offset"],
@@ -835,7 +856,7 @@ def main(argv=None):
             print("aiw_validate.py not found; structural preservation check skipped.")
         lang = args.lang if args.lang in ("en", "de") else detect_language(revised)
         facts = (fact_findings(revised, original, lang, args.allow) + ladder_findings(revised, original, lang, args.genre)
-                 + qualifier_findings(revised, original, lang))
+                 + qualifier_findings(revised, original, lang) + hedge_findings(revised, original, lang))
         if facts:
             print("Facts in the revision that are not in the original:")
             for f in facts:

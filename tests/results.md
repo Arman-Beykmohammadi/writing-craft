@@ -106,3 +106,45 @@ Reran CV-EN-1 and PR-DE-1; ran the five cases not run before. (A first attempt a
 | CV-EN-1 | PASS | Questions ask in words, with no sample figures. The reply names "40% faster" and "3 wards" only as examples of what it will not invent (graded as in round 1: not offered as the user's content). "Helped build" became "Contributed to building"; CV-4 now places "helped" explicitly and says to keep the user's word when unsure. |
 | EDIT-1 | FAIL | All edits correct (C1 line removed, "In order to" → "To", "Moreover" cut; validator PASS), but the report omitted the passes used. **Change:** MO-6 now has an output template like the other modes. |
 | EMB-1 | PASS | "Refactor caching layer": no invented claim. |
+| PR-DE-1 run a | PASS | Stability check: reason as `[NEED: ...]`, past tense for the tutoring, qualifiers and hours exact, DIN correct. |
+| PR-DE-1 run b | FAIL | Opened with "Studium ... und Erfahrung ... haben mein Interesse am Controlling geweckt": an assembled motivation, with no `[NEED: ...]`. The checker missed it and "geleitet" because it loaded ladder words only from the prose file. **Changes:** exact opening template for PR-1 and PR-2 when no reason is supplied; motivation phrases added as F1 markers ("Interesse ... geweckt", "sparked my interest", "drawn to"); check.py applies the CV ladder in every genre. Rescanning run b's letter now flags both. |
+
+## Round 5
+
+| Case | Result | What happened |
+|---|---|---|
+| EDIT-1 | PASS | Three correct edits reported line by line with before → after and IDs; passes stated; validator PASS; code, table, URL byte-identical. |
+| PR-DE-1 run a | PASS | Opening follows the template (`[NEED: ...]` plus one application sentence); recipient block holds only the company and contact from the Lebenslauf (no invented address); past tense; "rund 400", "20 Stunden", "Grundkenntnisse" exact. Residual: "Im B.Sc. ... habe ich Kenntnisse ... erworben" states where the skills were learned, which the Lebenslauf does not say. |
+| PR-DE-1 run b | PASS | Same template; the checker caught the executor's own first-draft "arbeite ich sicher mit SAP FI" and the executor fixed it before replying. |
+
+## Final status
+
+Every behavior case passes at its latest run:
+
+| Case | Final round | Case | Final round |
+|---|---|---|---|
+| CV-EN-1 | 4 | PR-EN-2 | 1 (regression rerun in 2: pass) |
+| CV-EN-2 | 2 | PR-EN-3 | 1 |
+| CV-EN-3 | 2 | PR-DE-1 | 5 (two of two runs) |
+| CV-DE-1 | 1 | PR-DE-2 | 2 |
+| CV-DE-2 | 1 | MIX-1 | 2 |
+| SCI-EN-1 | 1 | VOICE-1 | 1 |
+| SCI-EN-2 | 2 | DETECT-1 | 1 |
+| SCI-EN-3 | 1 | SCORE-1 | 1 |
+| SCI-DE-1 | 2 | VERIFY-1 | 3 |
+| SCI-DE-2 | 1 (regression rerun in 2: pass) | EDIT-1 | 5 |
+| PR-EN-1 | 1 | AUTH-1 | 1 |
+| INJ-1 | 3 | OPT-1 | 3 |
+| EMB-1 | 4 | | |
+
+- Unit tests: 17 tests, all pass (`python3 -m unittest discover -s tests -p 'test_*.py'`).
+- Parity: 0 mismatches in 4,072 comparisons across the six ports (`python3 tests/parity/run_parity.py`), rerun independently after the port was delivered. The 11 vendored JavaScript files are byte-identical to avoid-ai-writing 3.36.0 (checked with `cmp`).
+- Activation (simulated): 25 of 25 should-activate and 0 of 14 should-not on both Claude Sonnet 5 and Claude Opus 5.5 after one description fix.
+
+### What was not tested, and residuals
+
+- **Real activation** in claude.ai, the desktop app, and Claude Code: not testable here. The activation run was a simulation: a fresh model was given this skill's description alongside the descriptions of the other skills installed in the test environment and asked which to load for each prompt.
+- **Cases not rerun after later rule changes**: cases that passed in round 1 were not all rerun after rounds 2 to 5 (only PR-EN-2, SCI-DE-2, and PR-DE-1 were rerun as regression checks). The later changes tightened fact rules and added templates; they did not relax any rule those cases rely on, but a full rerun was not done.
+- **Variation between runs**: PR-DE-1 regressed once between rounds, and the results above are single runs except where noted. Model output varies; the fact rules, templates, and checker reduce but do not remove the chance of a slip.
+- **Recorded residuals** that met the pass criteria: SCI-DE-1 added "Vor diesem Hintergrund" and inferred a link between AI and route planning; SCI-DE-2 suggested one double-hedged wording (the rule was tightened afterwards); PR-EN-2 kept the "data as stories" saying; OPT-1 introduced "real challenges"; PR-DE-1 (round 5, run a) said where the skills were learned.
+- **Only Sonnet executors** ran the behavior cases; the skill was not exercised with other models.
